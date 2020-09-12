@@ -19,6 +19,37 @@
 <link href="./style.css" rel="stylesheet" type="text/css">
 <style>
 
+a.btn3 {
+  overflow: hidden;
+  padding: 1.5rem 6rem;
+  color: #fff;
+  border-radius: 0;
+  background: #000;
+}
+
+a.btn3 span {
+  position: relative;
+}
+
+a.btn3:before {
+  position: absolute;
+  top: 0;
+  left: 30px;
+  width: 150%;
+  height: 500%;
+  content: '';
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  -webkit-transform: translateX(-98%) translateY(-70%) rotate(135deg);
+  transform: translateX(-98%) translateY(-70%) rotate(135deg);
+  background: #fff100;
+}
+
+a.btn3:hover:before {
+  -webkit-transform: translateX(-9%) translateY(-25%) rotate(135deg);
+  transform: translateX(-9%) translateY(-25%) rotate(135deg);
+}
+
 .mannaka {
     bottom: 400px; 
     align: center;
@@ -349,7 +380,7 @@ h3 {
 <img src="http://fc.genserver.work/rgl-logo.png">
 <br><br><br>
 <div class="mannaka">
-<div class="u-fade u-fade--in"><a href="http://fc.genserver.work/join" class="c-btn1">Join</a></div></div>
+<a href="" class="btn3"><span>Join</span></a></div>
 <font size="7"><h1>現在開発中です</h1></font>
 </center>
 
