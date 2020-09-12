@@ -19,36 +19,87 @@
 <link href="./style.css" rel="stylesheet" type="text/css">
 <style>
 
-a.btn-flat {
-  overflow: hidden;
-  padding: 1.5rem 6rem;
-  color: #fff;
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 62.5%;/*rem算出をしやすくするために*/
+}
+
+.btn,
+a.btn,
+button.btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+a.btn-border {
+  border: 2px solid #000;
   border-radius: 0;
+  background: #fff;
+
+  -webkit-transform-style: preserve-3d;
+
+  transform-style: preserve-3d;
+}
+
+a.btn-border:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 15px;
+  height: 100%;
+
+  content: '';
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  -webkit-transform: translateX(0) translateY(0);
+  transform: translateX(0) translateY(0);
+
+  border-radius: 0 50% 50% 0;
   background: #000;
 }
 
-a.btn-flat span {
-  position: relative;
+a.btn-border:hover:before {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: bold;
+  line-height: 30px;
+
+  width: 30px;
+  height: 30px;
+
+  content: '\f061';
+  -webkit-transform: translateX(460%) translateY(.5rem);
+  transform: translateX(460%) translateY(.5rem);
+
+  color: #fff;
+  border-radius: 50%;
 }
 
-a.btn-flat:before {
-  position: absolute;
-  top: 0;
-  left: 30px;
-  width: 150%;
-  height: 500%;
-  content: '';
-  -webkit-transition: all .5s ease-in-out;
-  transition: all .5s ease-in-out;
-  -webkit-transform: translateX(-98%) translateY(-70%) rotate(135deg);
-  transform: translateX(-98%) translateY(-70%) rotate(135deg);
-  background: #fff100;
-}
-
-a.btn-flat:hover:before {
-  -webkit-transform: translateX(-9%) translateY(-25%) rotate(135deg);
-  transform: translateX(-9%) translateY(-25%) rotate(135deg);
-}
 
 .mannaka {
     bottom: 400px; 
@@ -380,7 +431,8 @@ h3 {
 <img src="http://fc.genserver.work/rgl-logo.png">
 <br><br><br>
 <div class="mannaka">
-<a href="" class="btn btn-flat"><span>Join</span></a></div>
+<a href="" class="btn btn-border">PUSH！</a>
+</div>
 <font size="7"><h1>現在開発中です</h1></font>
 </center>
 
