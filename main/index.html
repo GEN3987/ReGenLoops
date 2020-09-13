@@ -23,8 +23,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=Encode+Sans+Condensed:400,600');
 
-sage{top:70px;}
-
 * {
   outline: none;
 }
@@ -32,6 +30,7 @@ sage{top:70px;}
 strong {
   font-weight: 600;
 }
+
 
 header {
   display: flex;
@@ -80,6 +79,7 @@ main small {
 }
 #nav-container .bg {
   position: absolute;
+  top: 70px;
   left: 0;
   width: 100%;
   height: calc(100% - 70px);
@@ -139,6 +139,7 @@ main small {
 }
 
 #nav-content {
+  margin-top: 70px;
   padding: 20px;
   width: 90%;
   max-width: 300px;
@@ -232,73 +233,6 @@ ul {
   list-style: none;
 }
 
-.btn,
-a.btn,
-button.btn {
-  font-size: 1.6rem;
-  font-weight: 700;
-  line-height: 1.5;
-  position: relative;
-  display: inline-block;
-  padding: 1rem 4rem;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  text-align: center;
-  vertical-align: middle;
-  text-decoration: none;
-  letter-spacing: 0.1em;
-  color: #212529;
-  border-radius: 0.5rem;
-}
-
-a.btn-border {
-  border: 2px solid #000;
-  border-radius: 0;
-  background: #fff;
-
-  -webkit-transform-style: preserve-3d;
-
-  transform-style: preserve-3d;
-}
-
-a.btn-border:before {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  width: 15px;
-  height: 100%;
-
-  content: '';
-  -webkit-transition: all .3s;
-  transition: all .3s;
-  -webkit-transform: translateX(0) translateY(0);
-  transform: translateX(0) translateY(0);
-
-  border-radius: 0 50% 50% 0;
-  background: #000;
-}
-
-a.btn-border:hover:before {
-  font-family: 'Font Awesome 5 Free';
-  font-weight: bold;
-  line-height: 30px;
-
-  width: 30px;
-  height: 30px;
-
-  content: '▶';
-  -webkit-transform: translateX(460%) translateY(.5rem);
-  transform: translateX(460%) translateY(.5rem);
-
-  color: #fff;
-  border-radius: 50%;
-}
 
 
 .mannaka {
@@ -627,6 +561,29 @@ h3 {
 </style>
 </head>
 <body class="">
+
+<div class="page">
+  <header tabindex="0"><img src="http://fc.genserver.work/rgl-logo.png" height="70px"></header>
+  <div id="nav-container">
+    <div class="bg"></div>
+    <div class="button" tabindex="0">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div id="nav-content" tabindex="0">
+      <ul>
+        <li><a href="#">Top</a></li>
+        <li><a href="#">Download</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Developer</a></li>
+        <li><a href="#">ChangeLog</a></li>
+        <li class="small"><a href="http://www.genserver.work/">©︎ GenServer., All Rights Reserved.</a></li>
+      </ul>
+    </div>
+  </div>
+
+
 <div class="page">
   <div id="nav-container">
     <div class="bg"></div>
@@ -637,14 +594,12 @@ h3 {
     </div>
     <div id="nav-content" tabindex="0">
       <ul>
-	      <div class=sage>
         <li><a href="#">Top</a></li>
         <li><a href="#">Download</a></li>
         <li><a href="#">Contact</a></li>
         <li><a href="#">Developer</a></li>
         <li><a href="#">ChangeLog</a></li>
         <li class="small">©︎ <a href="http://www.genserver.work/" target="_blank">GenServer.,</a> All Rights Reserved.</li>
-	      </div>
       </ul>
     </div>
   </div>
