@@ -20,145 +20,7 @@
 <style>
 
 /*menu*/
-.menu{
-    height: 20px;
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    width: 30px;
-    z-index: 99;
-}
-.menu__line{
-    background: #fff;
-    display: block;
-    height: 2px;
-    position: absolute;
-    transition:transform .3s;
-    width: 100%;
-}
-.menu__line--center{
-    top: 9px;
-}
-.menu__line--bottom{
-    bottom: 0;
-}
-.menu__line--top.active{
-    top: 8px;
-    transform: rotate(45deg);
-}
-.menu__line--center.active{
-    transform:scaleX(0);
-}
-.menu__line--bottom.active{
-    bottom: 10px;
-    transform: rotate(135deg);
-}
-/*gnav*/
-.gnav{
-    background: rgba(0,0,0,0.8);
-    display: none;
-    height: 100%;
-    position: fixed;
-    width: 100%;
-    z-index: 98;
-}
-.gnav__wrap{
-    align-items:center;
-    display: flex;
-    height: 100%;
-    position: absolute;
-    width: 100%;
-}
-.gnav__menu{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 170px;
-}
-.gnav__menu__item{
-    margin: 40px 0 40px 100px;
-    opacity: 0;
-}
-.gnav__menu__item a{
-    color: #fff;
-    font-size: 2em;
-    font-weight: bold;
-    text-decoration: none;
-    transition: .5s;
-}
-.gnav__menu__item a:hover{
-    color: #666;
-}
 
-.cp_actab {
-	position: relative;
-	overflow: hidden;
-	width: 30%;
-	margin: 0 auto;
-	color: #ffffff;
-}
-.cp_actab input {
-	position: absolute;
-	z-index: -1;
-	opacity: 0;
-}
-.cp_actab label {
-	font-weight: bold;
-	line-height: 3;
-	position: relative;
-	display: block;
-	padding: 0 0 0 1em;
-	cursor: pointer;
-	margin: 0 0 1px 0;
-	background: #000000;
-}
-.cp_actab .cp_actab-content {
-	overflow: hidden;
-	max-height: 0;
-	-webkit-transition: max-height 0.35s;
-	transition: max-height 0.35s;
-	color: #000000;
-	background: #ffffff;
-}
-.cp_actab .cp_actab-content p {
-	margin: 1em;
-}
-/* :checked */
-.cp_actab input:checked ~ .cp_actab-content {
-	max-height: 20em;
-}
-/* Icon */
-.cp_actab label::after {
-	line-height: 3;
-	position: absolute;
-	top: 0;
-	right: 0;
-	display: block;
-	width: 3em;
-	height: 3em;
-	-webkit-transition: all 0.35s;
-	transition: all 0.35s;
-	text-align: center;
-}
-.cp_actab input[type=checkbox] + label::after {
-	content: '+';
-}
-.cp_actab input[type=checkbox]:checked + label::after {
-	transform: rotate(315deg);
-}
-
-*,
-*:before,
-*:after {
-  -webkit-box-sizing: inherit;
-  box-sizing: inherit;
-}
-
-html {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  font-size: 62.5%;/*rem算出をしやすくするために*/
-}
 
 .btn,
 a.btn,
@@ -556,23 +418,7 @@ h3 {
 </head>
 <body class="">
 <center>
-    <a class="menu">
-        <span class="menu__line menu__line--top"></span>
-        <span class="menu__line menu__line--center"></span>
-        <span class="menu__line menu__line--bottom"></span>
-    </a>
-    <nav class="gnav">
-        <div class="gnav__wrap">
-            <ul class="gnav__menu">
-                <li class="gnav__menu__item"><a href="">Test</a></li>
-                <li class="gnav__menu__item"><a href="">Test</a></li>
-                <li class="gnav__menu__item"><a href="">Test</a></li>
-                <li class="gnav__menu__item"><a href="">Test</a></li>
-                <li class="gnav__menu__item"><a href="">Test</a></li>
-            </ul>
-        </div><!--gnav-wrap-->
-    </nav>
-    <div class="hero"></div>
+
 <img src="http://fc.genserver.work/rgl-logo.png">
 
 
@@ -589,29 +435,7 @@ h3 {
 <script src="http://fc.genserver.work/velocity.min.js"></script>
 <script src="http://fc.genserver.work/perfect-scrollbar.jquery.min.js"></script>
 <script src="http://fc.genserver.work/slide.js"></script>
-<script type="text/javascript">
-var navFlg = false;
-$('.menu').on('click',function(){
-    $('.menu__line').toggleClass('active');
-    $('.gnav').fadeToggle();
-    if(!navFlg){
-        $('.gnav__menu__item').each(function(i){
-            $(this).delay(i*300).animate({
-                'margin-left' : 0,
-                'opacity' : 1,
-            },500);
-        });
-        navFlg = true;
-    }
-    else{
-        $('.gnav__menu__item').css({
-            'margin-left' : 100,
-            'opacity' : 0,
-        });
-        navFlg = false;
-    }
-});
-</script>
+
 <script type="text/javascript">
 (function($) {
     $(function () {
