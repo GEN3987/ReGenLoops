@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>chat-test3</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <button id="login">Googleアカウントで参加</button>
+    <div>
+      <input type="file" id="myfile"><br>
+      <textarea id="message" placeholder="メッセージ" rows="4" cols="40"></textarea>
+      <button id="send">投稿</button>
+    </div>
+    <div id="messages">
+    </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+    
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBoIEGBs4jMx0FHTL8SvPoyP34MUvFA3v0",
+    authDomain: "chat-12580.firebaseapp.com",
+    databaseURL: "https://chat-12580.firebaseio.com",
+    projectId: "chat-12580",
+    storageBucket: "chat-12580.appspot.com",
+    messagingSenderId: "27751431828",
+    appId: "1:27751431828:web:442ce31345c8211cbb7e81",
+    measurementId: "G-2NKSE862RT"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+    
+    <script>
+      
+      // データベースの参照を準備
+      var messagesRef = firebase.database().ref().child('massages');// ... 2
+      var provider = new firebase.auth.GoogleAuthProvider();
+      var user = firebase.auth().currentUser;
+      var myname;
+      var myimage="none";
+      var file="none";
+      $("#send").hide();
+      $("#message").hide();
+      $("#myfile").hide();
+      
+
+      firebase.auth().getRedirectResult().then(function(result) {
+        var user=result.user;
+        myname = user.displayName;
+        myimage = user.photoURL.replace("_normal","");
+        $("#login").hide();
+        $("#send").show();
+        $("#message").show();
+        $("#myfile").show();
+      });
+ 
+      // 既存メッセージを表示
+      messagesRef.on('child_added', function(snapshot) { // ... 3
+        var msg = snapshot.val();
+        console.log(snapshot.key);
+        if(msg.myimage==myimage){
+         if(msg.imageurl=="none"){
+           $('<div class="mycomment"></div>').html('<span class=time>' + displayTime(msg.daytime) + ' </span><p class="mymsg" id="' + snapshot.key + '">' + msgcnv(msg.body) + '</p>').prependTo('#messages');
+         }else{
+           $('<div class="mycomment"></div>').html('<span class=time>' + displayTime(msg.daytime) + ' </span><p class="mymsg" id="' + snapshot.key + '"><img src="'+msg.imageurl+'" width="'+String(300)+'"/></p>').prependTo('#messages');
+         }
+        }else{
+          if(msg.imageurl=="none"){
+            $('<div class="balloon6"></div>').html('<div class="faceicon"><img src="' + msg.myimage + '" alt="" ></div><div class="chatting"><div class=username>'+msgcnv(msg.name)+'</div><div class="says"><p>' + msgcnv(msg.body) + '</p></div><span class=time> ' + displayTime(msg.daytime) + '</span></div>').prependTo('#messages');
+          }else{
+            $('<div class="balloon6"></div>').html('<div class="faceicon"><img src="' + msg.myimage + '" alt="" ></div><div class="chatting"><div class=username>'+msgcnv(msg.name)+'</div><div class="says"><img src="'+msg.imageurl+'" width="'+String(300)+'"/></div><span class=time> ' + displayTime(msg.daytime) + '</span></div>').prependTo('#messages');
+          }
+        }
+      });
+ 
+      $('#send').click(function() {
+        // 新規メッセージを投稿
+        if($('#message').val()!=""){
+         messagesRef.push({ // ... 4
+           name: myname,
+           body: $('#message').val(),
+           myimage: myimage,
+           imageurl: "none",
+           daytime:firebase.database.ServerValue.TIMESTAMP
+         });
+         var obj = document.getElementById("message");
+         obj.value = "";
+        }
+      });
+      $(document).on('click','.mymsg', function(){
+        var id =  $(this).attr("id");
+        firebase.database().ref('massages').child(id).remove();
+        $(this).parent().remove();
+      }); 
+      $('#login').click(function() {
+        firebase.auth().signInWithRedirect(provider);
+      }); 
+      $('#myfile').change(function(e){
+      //ファイルオブジェクトを取得する
+        file = e.target.files[0];
+        if(file.type.indexOf("image") < 0){
+          fire="none";
+          obj.value = "";
+          return false;
+        }
+ 　　　　var storageRef = firebase.storage().ref('img/' + getUniqueStr());
+        storageRef.put(file).then(function() {
+          storageRef.getDownloadURL().then(function(url) {
+            messagesRef.push({ // ... 4
+              name: myname,
+              body: "",
+              myimage: myimage,
+              imageurl: url,
+              daytime:firebase.database.ServerValue.TIMESTAMP
+            });
+          });
+        });
+        var obj = document.getElementById("myfile");
+        obj.value = "";
+        file="none";
+      });
+      function getUniqueStr(myStrong){
+        var strong = 1000;
+        if (myStrong) strong = myStrong;
+        return new Date().getTime().toString(16)  + Math.floor(strong*Math.random()).toString(16);
+      }
+      function msgcnv(str) {
+       var regexp_url = /((h?)(ttps?:\/\/[a-zA-Z0-9.\-_@:/~?%&;=+#',()*!]+))/g; // ']))/;
+       var regexp_makeLink = function(all, url, h, href) {
+        return '<a href="h' + href + '">' + url + '</a>';
+       }
+
+       return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/\x20/g, '&nbsp;').replace(/\n/g, "<br>").replace(regexp_url, regexp_makeLink);
+      }
+      function displayTime(diff) {
+       var d = new Date(diff);
+       return (("00"+d.getHours()).slice(-2)+":"+("00"+d.getMinutes()).slice(-2))
+      }
+    </script>
+　　
+  </body>
+</html>
