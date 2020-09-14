@@ -35,24 +35,20 @@
 <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-database.js"></script>
 
    <link rel="stylesheet" href="./style.css">
-<style>
-#pagejump_demo .scroll_button_btm a{
-    position: fixed;
-    display: block;
-    right:50px;
-    top:50px;
-    background: #313131;
-    color:#fff;
-    padding:20px;
+
+<script>
+function test(){
+  var a = document.documentElement;
+  var y = a.scrollHeight - a.clientHeight;
+  window.scroll(0, y);
 }
-</style>
+</script>
+
 </head>
 <body>
    <h1>GenServerChat</h1>
 
-<div class="scroll_button_btm">
-    <a href="#page-bottom">最新のメッセージへ</a>
-</div>
+  <input type="button" onclick="test();" value="最新のメッセージへ">
 
    <div>
        <hr>
