@@ -11,7 +11,7 @@ send.addEventListener('click', function() {
    database.ref(room).push({
        name: name.value,
        message: message.value,
-       date: now.getFullYear() + '.' + now.getMonth()+1 + '.' + now.getDate() + '.' + now.getHours() + ':' + now.getMinutes() + '送信済み'
+       date: now.getFullYear() + '.' + now.getMonth()+1 + '.' + now.getDate() + '.' + now.getHours() + ':' + now.getMinutes() + ' '
    });
    message.value="";
    name.value="";
