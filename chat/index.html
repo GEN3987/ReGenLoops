@@ -1,9 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Chat App</title>
+<!-- saved from url=(0014)about:internet -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GenServer OFFICIAL FANCLUB R.G.L.">
+<meta property="og:title" content="GenServer｜GenServer OFFICIAL FANCLUB R.G.L.">
+<meta property="og:url" content="http://fc.genserver.work/">
+<meta property="og:description" content="GenServerオフィシャルファンクラブ">
+<meta property="og:image" content="https://cdn.discordapp.com/icons/630497383637057537/0ffabf96c71c9c9887c64cf1edad1556.webp?size=1024">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no"> <link rel="shortcut icon" href="https://cdn.discordapp.com/attachments/696295387358822400/728532790005465088/2.png">
+<title>GenServer｜GenServer OFFICIAL FANCLUB R.G.L.</title>
+<!--<link href="https://fonts.googleapis.com/css?family=Roboto:300,900" rel="stylesheet">-->
+<link href="http://fc.genserver.work/css" rel="stylesheet" type="text/css">
+<link href="http://fc.genserver.work/css.css" rel="stylesheet" type="text/css">
+<link href="http://fc.genserver.work/perfect-scrollbar.min.css" rel="stylesheet" type="text/css">
+<link href="http://fc.genserver.work/style.css" rel="stylesheet" type="text/css">
+<style>
 
    <!-- ここにアプリのscriptタグを貼り付けます。 -->
 
@@ -44,8 +58,574 @@ function test(){
 }
 </script>
 
+
+
+/*menu*/
+
+@import url('https://fonts.googleapis.com/css?family=Encode+Sans+Condensed:400,600');
+
+* {
+  outline: none;
+}
+
+strong {
+  font-weight: 600;
+}
+
+
+header {
+  display: flex;
+  position: fixed;
+  width: 100%;
+  height: 70px;
+  background: #212121;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+main {
+  padding: 70px 20px 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+main > div {
+  margin: auto;
+  max-width: 600px;
+}
+
+main h2 span {
+  color: #BF7497;
+}
+
+main p {
+  line-height: 1.5;
+  font-weight: 200;
+  margin: 20px 0;
+}
+
+main small {
+  font-weight: 300;
+  color: #888;
+}
+
+#nav-container {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  pointer-events: none;
+}
+#nav-container .bg {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 70px);
+  visibility: hidden;
+  opacity: 0;
+  transition: .3s;
+  background: #000;
+}
+#nav-container:focus-within .bg {
+  visibility: visible;
+  opacity: .6;
+}
+#nav-container * {
+  visibility: visible;
+}
+
+.button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  height: 70px;
+  width: 30px;
+  cursor: pointer;
+  pointer-events: auto;
+  margin-left: 25px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.icon-bar {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: #aaa;
+  transition: .3s;
+}
+.icon-bar + .icon-bar {
+  margin-top: 5px;
+}
+
+#nav-container:focus-within .button {
+  pointer-events: none;
+}
+#nav-container:focus-within .icon-bar:nth-of-type(1) {
+  transform: translate3d(0,8px,0) rotate(45deg);
+}
+#nav-container:focus-within .icon-bar:nth-of-type(2) {
+  opacity: 0;
+}
+#nav-container:focus-within .icon-bar:nth-of-type(3) {
+  transform: translate3d(0,-8px,0) rotate(-45deg);
+}
+
+#nav-content {
+  margin-top: 70px;
+  padding: 20px;
+  width: 90%;
+  max-width: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: calc(100% - 70px);
+  background: #ececec;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  transform: translateX(-100%);
+  transition: transform .3s;
+  will-change: transform;
+  contain: paint;
+}
+
+#nav-content ul {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#nav-content li a {
+  padding: 10px 5px;
+  display: block;
+  text-transform: uppercase;
+  transition: color .1s;
+}
+
+#nav-content li a:hover {
+  color: #BF7497;
+}
+
+#nav-content li:not(.small) + .small {
+  margin-top: auto;
+}
+
+.small {
+  display: flex;
+  align-self: center;
+}
+
+.small a {
+  font-size: 12px;
+  font-weight: 400;
+  color: #888;
+}
+.small a + a {
+  margin-left: 15px;
+}
+
+#nav-container:focus-within #nav-content {
+  transform: none;
+}
+
+
+
+
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+a,
+a:visited,
+a:focus,
+a:active,
+a:link {
+  text-decoration: none;
+  outline: 0;
+}
+
+a {
+  color: currentColor;
+  transition: .2s ease-in-out;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+
+
+.mannaka {
+    bottom: 400px; 
+    align: center;
+}
+
+.geeeeeeeeeeeee { position: absolute;
+    bottom: 0; 
+}
+
+.c-footer {
+    background-color: #444444;
+    padding-top: 80px;
+    padding-bottom: 30px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+#cover {
+    width: 100%px;
+    height: 800px;
+    position: relative;
+    overflow: hidden;
+}
+ 
+#cover>div {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+*, *:before, *:after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html,body {
+	height: 100%;
+	}
+body {
+	font-size: 14px;
+	font-family: 'Lato','Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', Meiryo, メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+	background-image: url("http://fc.genserver.work/back.png");
+}
+
+
+#container {
+	background: #eee;
+	margin-left: 260px;
+	position: relative;
+	-moz-transition: margin-left .25s linear;
+	-webkit-transition: margin-left .25s linear;
+	transition: margin-left .25s linear;
+}
+#main {
+	background: #eee;
+	padding-top: 50px;
+	min-height: 1400px;
+}
+#main p {
+	margin-bottom: 1em;
+	line-height: 1.9;
+}
+.inner {
+	padding: 90px;
+}
+
+/* main-visual */
+#main-visual {
+	display: flex;
+
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+#main-visual h2 {
+	font-size: 21px;
+	color: #fff;
+}
+h3 {
+	font-size: 131%;
+	margin-bottom: .7em;
+}
+#copyright a {
+	color: #666;
+	text-decoration: none;
+}
+#copyright a:hover {
+	text-decoration: underline;
+}
+
+#global-head {
+	position: fixed;
+	color: #142424;
+	width: 100%;
+        z-index: 100;
+	padding: 10px 30px;
+	background: #fff;
+	display: -webkit-flex;
+	display: flex;
+}
+
+#sidebar {
+	padding-top: 60px;
+	width: 260px;
+	height: 100%;
+	position: fixed;
+	color: #afc3f2;
+	background: #142424;
+}
+
+#brand-logo {
+	-webkit-transition: .35s ease-in-out;
+	-moz-transition: .35s ease-in-out;
+	transition: .35s ease-in-out;
+}
+
+#global-nav ul {
+	list-style: none;
+	margin-left: 0;
+}
+#global-nav > ul > li {
+	position: relative;
+}
+
+#global-nav a {
+	color: #aeb4cb;
+	text-decoration: none;
+	display: block;
+	padding: 15px;
+	-moz-transition: color .3s linear;
+	-webkit-transition: color .3s linear;
+	transition: color .3s linear;
+}
+#global-nav .sub-menu.is-active > a,
+#global-nav a:hover {
+	color: #fff;
+	/*background: #fff;*/
+}
+
+
+/* sub-menu icon */
+#global-nav .sub-menu-head {
+	position: relative;
+}
+#global-nav .sub-menu-head:after {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 18px;
+	margin: auto;
+	vertical-align: middle;
+	width: 8px;
+	height: 8px;
+	border-top: 1px solid #aeb4cb;
+	border-right: 1px solid #aeb4cb;
+	-moz-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+
+	-webkit-transition: .25s ease-in-out;
+	-moz-transition: .25s ease-in-out;
+	transition: .25s ease-in-out;
+}
+#global-nav .sub-menu.is-active > a:after,
+#global-nav .sub-menu-head:hover:after {
+	border-color: #fff;
+}
+
+#global-nav .is-active .sub-menu-head:after {
+	-moz-transform: rotate(135deg);
+	-webkit-transform: rotate(135deg);
+	transform: rotate(135deg);
+}
+/* sub-menu */
+#global-nav .sub-menu-nav {
+	background: #142424;
+
+	display: none;
+	padding: 10px 0;
+
+	/*-moz-transition: all .4s ease;*/
+	/*-webkit-transition: all .4s ease;*/
+	/*transition: all .4s ease;*/
+}
+
+
+#global-nav .sub-menu-nav a {
+	color: #afc3f2;
+	padding: 8px 15px;
+}
+#global-nav .sub-menu-nav a:hover {
+	color: #fff;
+}
+
+
+/* nav-toggle */
+#nav-toggle {
+	position: fixed;
+	top: 15px;
+	left: 15px;
+	height: 32px;
+}
+#nav-toggle > div {
+	position: relative;
+	width: 32px;
+}
+#nav-toggle span {
+	width: 100%;
+	height: 2px;
+	left: 0;
+	display: block;
+	background: #fff;
+	position: absolute;
+	-webkit-transition: .35s ease-in-out;
+	-moz-transition: .35s ease-in-out;
+	transition: .35s ease-in-out;
+}
+
+/* #nav-toggle close */
+#nav-toggle span:nth-child(1) {
+	top: 0;
+	/*
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	transform: rotate(45deg);
+	*/
+}
+#nav-toggle span:nth-child(2) {
+	top: 11px;
+	/*
+	width: 0;
+	left: 50%;
+	*/
+}
+#nav-toggle span:nth-child(3) {
+	top: 22px;
+	/*
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	*/
+}
+
+/*
+.close #nav-toggle span:nth-child(1) {
+	top: 0;
+	-webkit-transform: rotate(0);
+	-moz-transform: rotate(0);
+	transform: rotate(0);
+}
+.close #nav-toggle span:nth-child(2) {
+	width: 100%;
+	left: 0;
+}
+.close #nav-toggle span:nth-child(3) {
+	top: 22px;
+	-webkit-transform: rotate(0);
+	-moz-transform: rotate(0);
+	transform: rotate(0);
+}
+*/
+
+
+/* z-index */
+#nav-toggle {
+	z-index: 1000;
+}
+#container {
+	z-index: 900;
+}
+
+/* close */
+.close #container {
+	margin-left: 0;
+}
+.close #brand-logo {
+	margin-left: 50px;
+}
+.close #nav-toggle span {
+	background: #142424;
+}
+
+@media screen and (max-width: 900px) {
+	#container {
+		margin-left: 0;
+	}
+	#brand-logo {
+		margin-left: 50px;
+	}
+	#nav-toggle span {
+		background: #142424;
+	}
+	.close #nav-toggle span {
+		background: #fff;
+	}
+
+	#sidebar {
+		left: -260px;
+		z-index: 910;
+		-webkit-transition: .35s ease-in-out;
+		-moz-transition: .35s ease-in-out;
+		transition: .35s ease-in-out;
+	}
+	.close #sidebar {
+		left: 0;
+	}
+}
+
+@media screen and (max-width: 400px) {
+
+}
+</style>
 </head>
-<body>
+<body class="">
+
+<div class="page">
+  <header tabindex="0"><img src="http://fc.genserver.work/rgl-logo-white.png" height="70px"></header>
+  <div id="nav-container">
+    <div class="bg"></div>
+    <div class="button" tabindex="0">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div id="nav-content" tabindex="0">
+      <ul>
+        <li><a href="#">Top</a></li>
+        <li><a href="http://fc.genserver.work/form/">Form</a></li>
+        <li><a href="#">Information</a></li>
+        <li><a href="#">Other</a></li>
+        <li><a href="https://twitter.com/mcgenserver">Twitter</a></li>
+        <li class="small"><a href="http://www.genserver.work/">©︎ GenServer., All Rights Reserved.</a></li>
+      </ul>
+    </div>
+  </div>
+<div class="inner">
+<center>
+
    <h1>GenServerChat</h1>
 
   <input type="button" onclick="test();" value="最新のメッセージへ">
@@ -64,6 +644,46 @@ function test(){
            <button id="send">send</button>
        </div>
    </div>
+
+</center>
+	</div>
+
+
+
+
+
+<script src="http://fc.genserver.work/jquery.min.js"></script>
+<script src="http://fc.genserver.work/velocity.min.js"></script>
+<script src="http://fc.genserver.work/perfect-scrollbar.jquery.min.js"></script>
+<script src="http://fc.genserver.work/slide.js"></script>
+
+<script type="text/javascript">
+(function($) {
+    $(function () {
+
+        // サイドサブメニューアコーディオン
+        $('.sub-menu-head').on('click', function(){
+            var $subNav = $(this).next('.sub-menu-nav');
+            if ($subNav.is(':visible')) {
+                $subNav.velocity('slideUp', {duration: 200});
+                $(this).parent('li').removeClass('is-active');
+            }
+            else {
+                $subNav.velocity('slideDown', {duration: 200});
+                $(this).parent('li').addClass('is-active');
+            }
+            return false;
+        });
+
+        $('#nav-toggle').on('click', function() {
+            $('body').toggleClass('close');
+        });
+
+        $('.scroll').perfectScrollbar();
+    });
+})(jQuery);
+</script>
+
 <script src="./index.js"></script>
 
 <script>
@@ -77,5 +697,4 @@ $(function(){
 });
 </script>
 
-</body>
-</html>
+</body></html>
