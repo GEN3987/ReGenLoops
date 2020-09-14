@@ -1,33 +1,22 @@
 <!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <title>chat-test3</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-  </head>
-  <body>
-    <button id="login">Googleアカウントで参加</button>
-    <div>
-      <input type="file" id="myfile"><br>
-      <textarea id="message" placeholder="メッセージ" rows="4" cols="40"></textarea>
-      <button id="send">投稿</button>
-    </div>
-    <div id="messages">
-    </div>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
-    
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Chat App</title>
+
+   <!-- ここにアプリのscriptタグを貼り付けます。 -->
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-analytics.js"></script>
 
 <script>
   // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   var firebaseConfig = {
     apiKey: "AIzaSyBoIEGBs4jMx0FHTL8SvPoyP34MUvFA3v0",
     authDomain: "chat-12580.firebaseapp.com",
@@ -35,120 +24,33 @@
     projectId: "chat-12580",
     storageBucket: "chat-12580.appspot.com",
     messagingSenderId: "27751431828",
-    appId: "1:27751431828:web:442ce31345c8211cbb7e81",
-    measurementId: "G-2NKSE862RT"
+    appId: "1:27751431828:web:25551d2098b926f2bb7e81",
+    measurementId: "G-97E11G9VLX"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
 </script>
-    
-    <script>
-      
-      // データベースの参照を準備
-      var messagesRef = firebase.database().ref().child('massages');// ... 2
-      var provider = new firebase.auth.GoogleAuthProvider();
-      var user = firebase.auth().currentUser;
-      var myname;
-      var myimage="none";
-      var file="none";
-      $("#send").hide();
-      $("#message").hide();
-      $("#myfile").hide();
-      
+<script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-database.js"></script>
 
-      firebase.auth().getRedirectResult().then(function(result) {
-        var user=result.user;
-        myname = user.displayName;
-        myimage = user.photoURL.replace("_normal","");
-        $("#login").hide();
-        $("#send").show();
-        $("#message").show();
-        $("#myfile").show();
-      });
- 
-      // 既存メッセージを表示
-      messagesRef.on('child_added', function(snapshot) { // ... 3
-        var msg = snapshot.val();
-        console.log(snapshot.key);
-        if(msg.myimage==myimage){
-         if(msg.imageurl=="none"){
-           $('<div class="mycomment"></div>').html('<span class=time>' + displayTime(msg.daytime) + ' </span><p class="mymsg" id="' + snapshot.key + '">' + msgcnv(msg.body) + '</p>').prependTo('#messages');
-         }else{
-           $('<div class="mycomment"></div>').html('<span class=time>' + displayTime(msg.daytime) + ' </span><p class="mymsg" id="' + snapshot.key + '"><img src="'+msg.imageurl+'" width="'+String(300)+'"/></p>').prependTo('#messages');
-         }
-        }else{
-          if(msg.imageurl=="none"){
-            $('<div class="balloon6"></div>').html('<div class="faceicon"><img src="' + msg.myimage + '" alt="" ></div><div class="chatting"><div class=username>'+msgcnv(msg.name)+'</div><div class="says"><p>' + msgcnv(msg.body) + '</p></div><span class=time> ' + displayTime(msg.daytime) + '</span></div>').prependTo('#messages');
-          }else{
-            $('<div class="balloon6"></div>').html('<div class="faceicon"><img src="' + msg.myimage + '" alt="" ></div><div class="chatting"><div class=username>'+msgcnv(msg.name)+'</div><div class="says"><img src="'+msg.imageurl+'" width="'+String(300)+'"/></div><span class=time> ' + displayTime(msg.daytime) + '</span></div>').prependTo('#messages');
-          }
-        }
-      });
- 
-      $('#send').click(function() {
-        // 新規メッセージを投稿
-        if($('#message').val()!=""){
-         messagesRef.push({ // ... 4
-           name: myname,
-           body: $('#message').val(),
-           myimage: myimage,
-           imageurl: "none",
-           daytime:firebase.database.ServerValue.TIMESTAMP
-         });
-         var obj = document.getElementById("message");
-         obj.value = "";
-        }
-      });
-      $(document).on('click','.mymsg', function(){
-        var id =  $(this).attr("id");
-        firebase.database().ref('massages').child(id).remove();
-        $(this).parent().remove();
-      }); 
-      $('#login').click(function() {
-        firebase.auth().signInWithRedirect(provider);
-      }); 
-      $('#myfile').change(function(e){
-      //ファイルオブジェクトを取得する
-        file = e.target.files[0];
-        if(file.type.indexOf("image") < 0){
-          fire="none";
-          obj.value = "";
-          return false;
-        }
- 　　　　var storageRef = firebase.storage().ref('img/' + getUniqueStr());
-        storageRef.put(file).then(function() {
-          storageRef.getDownloadURL().then(function(url) {
-            messagesRef.push({ // ... 4
-              name: myname,
-              body: "",
-              myimage: myimage,
-              imageurl: url,
-              daytime:firebase.database.ServerValue.TIMESTAMP
-            });
-          });
-        });
-        var obj = document.getElementById("myfile");
-        obj.value = "";
-        file="none";
-      });
-      function getUniqueStr(myStrong){
-        var strong = 1000;
-        if (myStrong) strong = myStrong;
-        return new Date().getTime().toString(16)  + Math.floor(strong*Math.random()).toString(16);
-      }
-      function msgcnv(str) {
-       var regexp_url = /((h?)(ttps?:\/\/[a-zA-Z0-9.\-_@:/~?%&;=+#',()*!]+))/g; // ']))/;
-       var regexp_makeLink = function(all, url, h, href) {
-        return '<a href="h' + href + '">' + url + '</a>';
-       }
-
-       return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/\x20/g, '&nbsp;').replace(/\n/g, "<br>").replace(regexp_url, regexp_makeLink);
-      }
-      function displayTime(diff) {
-       var d = new Date(diff);
-       return (("00"+d.getHours()).slice(-2)+":"+("00"+d.getMinutes()).slice(-2))
-      }
-    </script>
-　　
-  </body>
+   <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+   <h1>GenServerChat</h1>
+   <div>
+       <div>
+           Name<br><input type="text" id="name">
+       </div>
+       <br>
+       <div>
+           Message<br><textarea id="message" row="10"></textarea><br>
+           <br>
+           <button id="send">send</button>
+       </div>
+       <hr>
+       <div id="output"></div>
+   </div>
+<script src="./index.js"></script>
+</body>
 </html>
