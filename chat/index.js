@@ -22,8 +22,6 @@ database.ref(room).on("child_added", function(data) {
    const v = data.val();
    const k = data.key;
    let str = "";
-   str += '<div class="c-news__item"><div class="c-news__date">'+v.date+'</div><div class="c-news__type">'+v.name+'</div>';
-   str += '<div class="c-news__name">'+v.message+'</div>';
-   str += '</div>';
+   str += '<span class="c-badge c-badge--pickup">' + v.name + '</span><font size=0.5><h1>' + v.date + '</h1></font><br><p>' + v.message + '</p>';
    output.innerHTML += str;
 });
