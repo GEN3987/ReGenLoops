@@ -22,6 +22,6 @@ database.ref(room).on("child_added", function(data) {
    const v = data.val();
    const k = data.key;
    let str = "";
-   str += '<span class="c-badge c-badge--pickup">' + v.name + '</span><font size=0.5><h1>' + v.date + '</h1></font><br><p>' + v.message + '</p>';
+   str += '<hr><span class="c-badge c-badge--pickup">' + v.name + '</span><font size=0.5><h1>' + v.date + '</h1></font><br><p>' + v.message + '</p><hr>';
    output.innerHTML += str;
 });
